@@ -1,0 +1,9 @@
+cs158 Assignment4
+Nick Reminder, Maddie Gordon
+
+A priority queue was used to keep track of distances in k-NN. 
+	- A priority queue has O(n) insertion [must find proper queue location],
+	and O(1) access [popping off front of the queue].
+	- Sorting algorithms are generally O(n log n) [Collections.sort has this];
+	would also be constant access off one end of the structure.
+	
