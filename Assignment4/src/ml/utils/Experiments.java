@@ -72,8 +72,8 @@ public class Experiments {
 			DataSetSplit ds = cvs.getValidationSet(i, false);
 			//DataSet train = ds.getTrain();
 			//DataSet test = ds.getTest();
-			en.preprocessTrain(ds.getTrain());
-			en.preprocessTest(ds.getTest());
+			fn.preprocessTrain(ds.getTrain());
+			fn.preprocessTest(ds.getTest());
 			double correct = 0.0;
 			double totalAcc = 0.0;
 			for (int j = 0; j < 100; j++) {
@@ -87,7 +87,7 @@ public class Experiments {
 				totalAcc += (double)correct/(double)ds.getTest().getData().size();
 			}
 			totalAcc = totalAcc / (double)100;
-			System.out.println("Split " + i + ": " + totalAcc);
+			System.out.println( i + ", " + totalAcc);
 		}
 		
 		

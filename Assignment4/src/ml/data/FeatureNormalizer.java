@@ -108,5 +108,7 @@ public class FeatureNormalizer implements DataPreprocessor {
 			}
 			myFeatureVariances[i] = Math.sqrt(totalNumerator/myExamples.size());
 		}
+		
+		theFeatureVariances = myFeatureVariances;
 	}
 }
