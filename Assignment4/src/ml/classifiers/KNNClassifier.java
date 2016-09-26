@@ -23,7 +23,6 @@ public class KNNClassifier implements Classifier {
 	@Override
 	public void train(DataSet data) {
 		myExamples = (ArrayList<Example>) data.getData().clone();
-		//pq = initPq(myExamples);
 	}
 
 
@@ -48,15 +47,11 @@ public class KNNClassifier implements Classifier {
 	@Override
 	public double classify(Example example) {
 		PriorityQueue<ExampleDist> pq = new PriorityQueue<ExampleDist>();
-
 		for (Example ex : myExamples) {
-			double dist = getEucDistance(example, ex);
-//				double maxDist = getMaxDist(pq);
-//				if (dist < maxDist) { 
-//					if (pq.size() >= k) { //an element will need to be kicked out of the priority queue
-//						pq = replace(new ExampleDist(example, dist), pq);
-//					} else { //add the new ExampleDist to the priority queue
-			pq.add(new ExampleDist(example, dist));
+			if(!example.equals(ex)) {
+				double dist = getEucDistance(example, ex);
+				pq.add(new ExampleDist(example, dist));
+			}
 		}		
 		return majLabel(pq);
 	}
