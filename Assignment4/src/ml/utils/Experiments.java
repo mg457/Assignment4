@@ -61,19 +61,23 @@ public class Experiments {
 //			System.out.println("Split " + i + ": " + totalSum);
 //		}
 		
-		//Q3
-		KNNClassifier avg = new KNNClassifier();
+		//Q3 & Q4
+		//KNNClassifier avg = new KNNClassifier();
+		AveragePerceptronClassifier avg = new AveragePerceptronClassifier();
 		String csvFile = "/Users/maddie/Documents/FALL2016/MachineLearning/hw4/titanic-train.real.csv";
 		DataSet data = new DataSet(csvFile);
-		CrossValidationSet cvs = new CrossValidationSet(data, 10);
+		CrossValidationSet cvs = new CrossValidationSet(data, 10, true);
 		FeatureNormalizer fn = new FeatureNormalizer();
 		ExampleNormalizer en = new ExampleNormalizer();
 		for (int i = 0; i < 10; i++) {
 			DataSetSplit ds = cvs.getValidationSet(i, false);
 			//DataSet train = ds.getTrain();
 			//DataSet test = ds.getTest();
+			
 			fn.preprocessTrain(ds.getTrain());
 			fn.preprocessTest(ds.getTest());
+			en.preprocessTrain(ds.getTrain());
+			en.preprocessTest(ds.getTest());
 			double correct = 0.0;
 			double totalAcc = 0.0;
 			for (int j = 0; j < 100; j++) {
@@ -87,7 +91,8 @@ public class Experiments {
 				totalAcc += (double)correct/(double)ds.getTest().getData().size();
 			}
 			totalAcc = totalAcc / (double)100;
-			System.out.println( i + ", " + totalAcc);
+			System.out.println(totalAcc);
+			//System.out.println("Split " + i + ": " + totalAcc);
 		}
 		
 		

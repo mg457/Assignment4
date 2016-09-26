@@ -18,6 +18,8 @@ public class KNNClassifier implements Classifier {
 	private int k = 3; 
 	private PriorityQueue<ExampleDist> pq;
 	private ArrayList<Example> myExamples;
+	
+	
 
 	@Override
 	public void train(DataSet data) {
@@ -46,7 +48,7 @@ public class KNNClassifier implements Classifier {
 	public double classify(Example example) {
 		PriorityQueue<ExampleDist> pq = new PriorityQueue<ExampleDist>();
 		for (Example ex : myExamples) {
-				double dist = getEucDistance(example, ex);
+				double dist = getEucDistance(ex, example);
 				pq.add(new ExampleDist(ex, dist));
 		}		
 		return majLabel(pq);
