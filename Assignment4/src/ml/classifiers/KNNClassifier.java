@@ -1,14 +1,12 @@
 package ml.classifiers;
 
 import java.util.ArrayList;
-
 import java.util.PriorityQueue;
 import java.util.Set;
 import java.util.*;
-
 import ml.data.DataSet;
 import ml.data.Example;
-import ml.utils.ExampleDist;
+import ml.utils.*;
 
 /**
  * k-Nearest Neighbor perceptron classifier
@@ -17,15 +15,13 @@ import ml.utils.ExampleDist;
  */
 public class KNNClassifier implements Classifier {
 
-	private int k = 3; // can do this?
+	private int k = 3; 
 	private PriorityQueue<ExampleDist> pq;
 
-	public KNNClassifier() {
-	}
+	public KNNClassifier() {}
 
 	@Override
 	public void train(DataSet data) {
-		// TODO Auto-generated method stub
 		ArrayList<Example> myExamples = (ArrayList<Example>) data.getData().clone();
 		pq = initPq(myExamples);
 	}
@@ -61,6 +57,7 @@ public class KNNClassifier implements Classifier {
 		for (int i = 0; i < minLength; i++) {
 			acc += Math.pow(a.getFeature((int) aSet[i]) - b.getFeature((int) bSet[i]), 2);
 		}
+		//System.out.println(Math.sqrt(acc));
 		return Math.sqrt(acc);
 	}
 
@@ -81,8 +78,7 @@ public class KNNClassifier implements Classifier {
 					}
 				}
 			}
-		}	
-		
+		}		
 		return majLabel(pq);
 	}
 	
@@ -92,11 +88,12 @@ public class KNNClassifier implements Classifier {
 	 * @return label which will classify the example
 	 */
 	protected double majLabel(PriorityQueue<ExampleDist> p) {
+		HashMapCounter<Double> counter = new HashMapCounter<Double>();
 		for(ExampleDist ex : p) {
-			System.out.println(ex.getExample().getLabel()); //TODO figure out how to get majority label
-			
+			 //TODO figure out how to get majority label
+			counter.increment(ex.getExample().getLabel());	
 		}
-		return 0.0;
+		return counter.sortedEntrySet().get(0).getKey();
 	}
 
 	/**
@@ -146,7 +143,8 @@ public class KNNClassifier implements Classifier {
 		DataSet data = new DataSet(csvFile);
 		kc.train(data);
 		for(Example ex : data.getData()){
-			kc.classify(ex);
+			System.out.println(kc.classify(ex));
+			//kc.classify(ex);
 		}
 	}
 
