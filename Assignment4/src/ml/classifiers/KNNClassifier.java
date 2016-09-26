@@ -29,9 +29,9 @@ public class KNNClassifier implements Classifier {
 	/**
 	 * calculate the Euclidean distance between two examples
 	 * 
-	 * @param a
-	 * @param b
-	 * @return
+	 * @param a	- first example
+	 * @param b - second example
+	 * @return	Double representing Euclidean distance between the two
 	 */
 	protected double getEucDistance(Example a, Example b) {
 		Object[] aSet = a.getFeatureSet().toArray();
@@ -48,10 +48,8 @@ public class KNNClassifier implements Classifier {
 	public double classify(Example example) {
 		PriorityQueue<ExampleDist> pq = new PriorityQueue<ExampleDist>();
 		for (Example ex : myExamples) {
-			if(!example.equals(ex)) {
 				double dist = getEucDistance(example, ex);
-				pq.add(new ExampleDist(example, dist));
-			}
+				pq.add(new ExampleDist(ex, dist));
 		}		
 		return majLabel(pq);
 	}
@@ -62,12 +60,11 @@ public class KNNClassifier implements Classifier {
 	 * @return label which will classify the example
 	 */
 	protected double majLabel(PriorityQueue<ExampleDist> p) {
-		HashMapCounter<Double> counter = new HashMapCounter<Double>();
+		int sum = 0;
 		for(int i = 0; i < k; i++) {
-			ExampleDist ex = p.poll();
-			counter.increment(ex.getExample().getLabel());	
+			sum += p.poll().getExample().getLabel();	
 		}
-		return counter.sortedEntrySet().get(0).getKey();
+		return (sum > 0) ? 1 : -1;
 	}
 
 
