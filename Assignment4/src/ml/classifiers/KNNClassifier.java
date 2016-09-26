@@ -19,12 +19,10 @@ public class KNNClassifier implements Classifier {
 	private PriorityQueue<ExampleDist> pq;
 	private ArrayList<Example> myExamples;
 
-
 	@Override
 	public void train(DataSet data) {
 		myExamples = (ArrayList<Example>) data.getData().clone();
 	}
-
 
 	/**
 	 * calculate the Euclidean distance between two examples
@@ -66,7 +64,6 @@ public class KNNClassifier implements Classifier {
 		}
 		return (sum > 0) ? 1 : -1;
 	}
-
 
 	/**
 	 * set the value of k (e.g. change number of nearest neighbors to look for)
