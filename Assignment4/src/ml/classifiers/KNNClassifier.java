@@ -76,13 +76,17 @@ public class KNNClassifier implements Classifier {
 
 	public static void main(String[] args) {
 		KNNClassifier kc = new KNNClassifier();
-		String csvFile = "/Users/maddie/Documents/FALL2016/MachineLearning/hw4/titanic-train.real.csv";
+		String csvFile = 
+				"C:/Users/Nick/Documents/School/Pomona College/Sr 1st Sem/Eclipse Workspace/Assignment4/titanic-train.real.csv";
 		DataSet data = new DataSet(csvFile);
 		kc.train(data);
+		int correct = 0;
+		int eval = 0;
 		for(Example ex : data.getData()){
-			System.out.println(kc.classify(ex));
-			//kc.classify(ex);
+			if (Double.compare(kc.classify(ex), ex.getLabel())==0){ correct++; }
+			eval++;
 		}
+		System.out.println(correct/eval);
 	}
 
 }
